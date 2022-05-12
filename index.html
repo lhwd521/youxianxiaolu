@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="悠闲小路的主页,免费视频课程,从0开始改变生活"
+    />
+    <meta name="keywords" content="悠闲小路,从0开始改变生活,免费视频课程" />
+    <meta name="copyright" content="悠闲小路" />
+    <meta name="author" content="悠闲小路" />
+    <link rel="stylesheet" type="text/css" href="mystyle.css" />
+    <link rel="icon" href="favicon.ico" />
+    <title>悠闲小路</title>
+    <script>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d7ca4c3c0c38fc21bcb092425541a8e8";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  </head>
+  <body>
+    <!--头像栏-->
+    <touxianglan class="box-shadow">
+      <img
+        class="circle"
+        src="logo.jpg"
+        alt="logo"
+        width="100px"
+        height="100px"
+      />
+    </touxianglan>
+    <!--内容栏-->
+    <neironglan class="container">
+      <p>欢迎来到【悠闲小路】的主页</p>
+      <p>
+        你好，我是悠闲小路，从事电脑运维行业10多年，2022年想要转变为自由职业。
+      </p>
+      <hr />
+      <p>
+        给别人打工和给自己打工是完全不同的领域，我渴望改变，却对未来充满迷茫和恐惧，加上拖延的毛病，迟迟无法踏出这一步。
+      </p>
+      <p>
+        2022年初看到一本书《福格行为模型》，实践了书中的方法，对自己帮助比较大。觉得很不错，也跟其他的小伙伴推荐了，但是发觉现在很多人是不喜欢看书的，
+        更愿意看视频。即使看书，大部分人也不会看完。即便看完，很多人也不会真正实践书上的内容。真正读透一本书，做到知行合一是非常困难的。
+      </p>
+      <p>
+        所以我决定从书中提炼出简洁的观点并结合实践，做成免费的视频课程
+        <a class="a" target="_blank" rel="noopener noreferrer" href="0.html">
+          【从0开始改变生活】</a
+        >
+        ，方便大家学习实践。
+      </p>
+      <hr />
+      <div class="binglie">
+        <div class="jiange">
+          <p class="cu">加微信互相交流：youxianxiaolu8</p>
+          <img src="weixin.jpg" alt="weixin" width="180px" height="180px" />
+        </div>
+        <div class="jiange">
+          <p class="cu">微信公众号：悠闲小路学习区</p>
+          <img
+            src="gongzhonghao.jpg"
+            alt="gongzhonghao"
+            width="180px"
+            height="180px"
+          />
+        </div>
+      </div>
+      <div class="binglie">
+        <a
+          class="a"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://space.bilibili.com/39090992"
+        >
+          悠闲小路的B站视频</a
+        >
+      </div>
+    </neironglan>
+    <!--底栏-->
+    <footer class="box-shadow">
+      <p style="color: #666">Copyright © youxianxiaolu.com</p>
+    </footer>
+
+    <canvas class="background"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
+    <script>
+      window.onload = function () {
+        Particles.init({
+          selector: ".background",
+          color: "#75A5B7",
+          maxParticles: 130,
+          connectParticles: true,
+          responsive: [
+            {
+              breakpoint: 768,
+              options: {
+                maxParticles: 80,
+              },
+            },
+            {
+              breakpoint: 375,
+              options: {
+                maxParticles: 50,
+              },
+            },
+          ],
+        });
+      };
+    </script>
+  </body>
+</html>
