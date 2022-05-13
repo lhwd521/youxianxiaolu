@@ -35,13 +35,12 @@ body {
 }
 touxianglan {
   width: 100%;
-  height: 160px;
   background-color: #eee;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   z-index: 1;
 }
 neironglan {
@@ -60,8 +59,8 @@ footer {
   display: flex;
   background-color: #f1f1f1;
   text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   font-size: 12px;
   width: 100%;
   align-items: center;
