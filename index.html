@@ -27,13 +27,35 @@
   <body>
     <!--头像栏-->
     <touxianglan class="box-shadow">
-      <img
-        class="circle"
-        src="logo.jpg"
-        alt="logo"
-        width="85px"
-        height="85px"
-      />
+      <div class="flex flex1"></div>
+      <div class="flex">
+        <img
+          class="circle"
+          src="images/logo.jpg"
+          alt="logo"
+          width="85px"
+          height="85px"
+        />
+      </div>
+      <div class="flex flex1 flexcenter">
+        <ul
+          style="width: 500px; padding: 0; height: 85px; margin: 0"
+          class="flex flexcenter menu"
+        >
+          <li>主页</li>
+          <li>
+            课程<!--子导航栏-->
+            <ul style="padding: 0" class="menu">
+              <li class="flex flexcenter">从0开始改变生活</li>
+              <li class="flex flexcenter">从0开始改变生活</li>
+              <li class="flex flexcenter">从0开始改变生活</li>
+            </ul>
+          </li>
+
+          <li>博客</li>
+          <li>网址导航</li>
+        </ul>
+      </div>
     </touxianglan>
     <!--内容栏-->
     <neironglan class="container">
@@ -60,12 +82,17 @@
       <div class="binglie">
         <div class="jiange">
           <p class="cu">加微信互相交流：youxianxiaolu8</p>
-          <img src="weixin.jpg" alt="weixin" width="180px" height="180px" />
+          <img
+            src="images/weixin.jpg"
+            alt="weixin"
+            width="180px"
+            height="180px"
+          />
         </div>
         <div class="jiange">
           <p class="cu">微信公众号：悠闲小路学习区</p>
           <img
-            src="gongzhonghao.jpg"
+            src="images/gongzhonghao.jpg"
             alt="gongzhonghao"
             width="180px"
             height="180px"
