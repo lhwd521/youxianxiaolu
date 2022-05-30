@@ -13,14 +13,8 @@
   --search-height: 50px;
 }
 @media (max-width: 600px) {
-  .pointer {
-    height: 35px !important;
-  }
-  .pointer.minute {
-    height: 50px !important;
-  }
-  .pointer.second {
-    height: 50px !important;
+  .clock {
+    display: none;
   }
 }
 .start {
