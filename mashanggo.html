@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="马上起始页由悠闲小路开发,是一个快速、实用的浏览器起始页。拖延人群的好帮手。"
+    />
+    <meta name="keywords" content="马上起始页,马上,主页,导航,起始页,悠闲小路" />
+    <meta name="copyright" content="悠闲小路" />
+    <meta name="author" content="悠闲小路" />
+    <link rel="stylesheet" type="text/css" href="styles/main.css" />
+    <link rel="icon" href="favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css"
+    />
+    <title>马上起始页</title>
+  </head>
+  <body class="start">
+    <div class="box">
+      <div class="box-main">
+        <div class="box-header"></div>
+        <box-time>
+          <div class="clock">
+            <div class="pointer hour"></div>
+            <div class="pointer minute"></div>
+            <div class="pointer second"></div>
+            <div class="point"></div>
+          </div>
+          <div id="time" class="time"></div>
+          <div class="date">
+            <span id="time-month" class="time-month"></span>
+            <span id="time-week" class="time-week"></span>
+          </div>
+        </box-time>
+        <div class="search">
+          <div class="search-box">
+            <div class="search-select">
+              <i class="fa fa-paw" style="font-size: 24px"></i>
+            </div>
+            <input
+              id="input-word"
+              type="text"
+              class="input-box"
+              placeholder="搜索"
+            />
+            <div class="search-select" onclick="souSuo()">
+              <i class="fa fa-search" style="font-size: 24px"></i>
+            </div>
+          </div>
+        </div>
+        <button class="but-img" onclick="change()">切换背景</button>
+        <div class="app-icon"></div>
+        <div class="footer"></div>
+      </div>
+    </div>
+    <wallpaper>
+      <div id="mao" class="mao"></div>
+      <img id="bgimg" class="bg" src="./images/yun.jpg" alt="beijing" />
+    </wallpaper>
+    <script src="scripts/main.js" Content-Type="text/javascript"></script>
+  </body>
+</html>
