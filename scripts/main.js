@@ -84,16 +84,35 @@ setInterval(setTime, 1000);
 
 //背景毛玻璃特效
 let input = document.querySelector(".input-box");
+let mao = document.getElementById("mao");
 //获得焦点
 input.onfocus = function () {
-  let mao = document.getElementById("mao");
   mao.classList.add("on");
 };
-//失去焦点
-input.onblur = function () {
-  let mao = document.getElementById("mao");
-  mao.classList.remove("on");
+
+let body = document.getElementById("body");
+//监听鼠标点击事件，焦点不在input中则清除样式
+body.addEventListener("click", function () {
+  if (document.activeElement.id != "input-word") {
+    mao.classList.remove("on");
+    list.innerHTML = "";
+    input.value = "";
+  }
+});
+
+//按回车搜索
+input.onkeydown = function (event) {
+  let code = event.keyCode;
+  if (code == 13) {
+    souSuo();
+    //input失去焦点
+    input.blur();
+    mao.classList.remove("on");
+    list.innerHTML = "";
+    input.value = "";
+  }
 };
+
 function souSuo() {
   let word = document.getElementById("input-word").value;
   if (word.length != 0) {
@@ -101,5 +120,40 @@ function souSuo() {
     window.open(sou);
   } else {
     log("请输入信息");
+  }
+}
+
+function cl() {
+  input.blur();
+  list.innerHTML = "";
+  input.value = "";
+}
+
+//联想搜索功能
+let btn = document.getElementById("input-word");
+let list = document.getElementById("list");
+
+btn.onkeyup = function () {
+  let val = this.value;
+  if (val) {
+    let oScript = document.createElement("script");
+    oScript.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${val}&cb=callback`;
+    document.body.appendChild(oScript);
+    document.body.removeChild(oScript);
+  } else {
+    list.style.display = "none";
+  }
+};
+
+function callback(data) {
+  list.style.display = "block";
+  let str = "";
+  if (data.s.length > 0) {
+    data.s.forEach(function (val) {
+      str += `<li class="list-li"><a class="aSou" href = "https://www.baidu.com/s?wd=${val}" target="_blank" rel="noopener noreferrer" onclick="cl()">${val}</a></li>`;
+    });
+    list.innerHTML = str;
+  } else {
+    list.style.display = "none";
   }
 }

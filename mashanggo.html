@@ -19,7 +19,7 @@
     />
     <title>马上起始页</title>
   </head>
-  <body class="start">
+  <body id="body" class="start">
     <div class="box">
       <div class="box-main">
         <div class="box-header"></div>
@@ -46,10 +46,12 @@
               type="text"
               class="input-box"
               placeholder="搜索"
+              autocomplete="off"
             />
             <div class="search-select" onclick="souSuo()">
               <i class="fa fa-search" style="font-size: 24px"></i>
             </div>
+            <ul id="list"></ul>
           </div>
         </div>
         <button class="but-img" onclick="change()">切换背景</button>

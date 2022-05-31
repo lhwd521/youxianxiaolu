@@ -39,7 +39,6 @@
   border-radius: 25px;
   height: 45px;
   width: 100px;
-  z-index: 10;
   margin: 20px auto;
   font-size: 16px;
   box-shadow: 0 0 10px 3px rgb(139, 137, 137);
@@ -174,4 +173,33 @@ box-time {
   top: 0;
   width: 100%;
   height: 100%;
+}
+#list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  top: var(--search-height);
+  backdrop-filter: blur(50px);
+  transition: 0.2s;
+  border-radius: 20px;
+  font-size: 14px;
+  padding: 0;
+}
+.list-li {
+  list-style: none;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+  padding: 0 30px;
+}
+.list-li:hover {
+  padding-left: 40px;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: 0.3s;
+}
+.aSou {
+  text-decoration: none;
+  color: #000;
+  display: block;
 }
