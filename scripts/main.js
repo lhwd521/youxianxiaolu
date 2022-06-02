@@ -89,20 +89,22 @@ let mao = document.getElementById("mao");
 input.onfocus = function () {
   mao.classList.add("on");
 };
-// let delOn = 0;
 let body = document.getElementById("body");
 //监听鼠标点击事件，焦点不在input中则清除样式
-body.addEventListener("click", function () {
+let delOn = 0;
+body.addEventListener("click", function (event) {
   if (document.activeElement.id != "input-word") {
     mao.classList.remove("on");
     list.innerHTML = "";
     input.value = "";
   }
   //第二个条件，判断鼠标是否点击到app上
-  // if (delOn === 1) {
-  //   document.body.classList.toggle("active-del");
-  //   delOn = 0;
-  // }
+  let ulClick = document.getElementById("app-gird").contains(event.target);
+  if (!ulClick && delOn === 1) {
+    document.body.classList.toggle("active-del");
+    delOn = 0;
+    log(delOn);
+  }
 });
 
 let liNum;
@@ -239,22 +241,17 @@ function appAdds() {
 }
 //打开、关闭删除app
 function appDel() {
-  // if (delOn === 0) {
-  //   delOn = 1;
-
-  // } else {
-  //   delOn = 0;
-  // }
-  // log(delOn);
+  if (delOn === 0) {
+    delOn = 1;
+  } else {
+    delOn = 0;
+  }
   document.body.classList.toggle("active-del");
 }
 
 function appDelMine(e) {
-  let a = e.parentNode.parentNode;
-
-  log(a.parentNode);
-  a.remove();
-  // var a = e.parentNode.getElementsByTagName("span")[0];
+  let foo = e.parentNode.parentNode;
+  foo.remove();
 }
 
 // function appDel() {

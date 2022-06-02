@@ -55,7 +55,7 @@
           </div>
         </div>
         <button class="but-img" onclick="change()">切换背景</button>
-        <div class="app-icon flex1">
+        <div id="app-gird" class="app-icon flex1">
           <ul class="app-gird">
             <li class="app-li">
               <div class="app-div">
@@ -78,6 +78,7 @@
               </div>
               <p class="app-title">爱淘宝</p>
             </li>
+            <!-- 添加app -->
             <li class="app-li">
               <div class="app-div">
                 <a href="#" class="app-a" onclick="appAdd()"
@@ -89,9 +90,10 @@
               </div>
               <p class="app-title"></p>
             </li>
+            <!-- 删除app -->
             <li class="app-li">
               <div class="app-div">
-                <a href="#" class="app-a" onclick="appDel()"
+                <a href="#" class="app-a app-del-on" onclick="appDel()"
                   ><i
                     class="fa fa-trash-o"
                     style="font-size: 36px; color: rgba(245, 8, 8, 0.6)"
