@@ -18,28 +18,60 @@
       href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css"
     />
     <title>马上起始页</title>
+    <script>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d7ca4c3c0c38fc21bcb092425541a8e8";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
   </head>
   <body id="body" class="start">
     <div class="box">
       <div class="box-main">
         <div class="box-header"></div>
-        <box-time>
-          <div class="clock">
-            <div class="pointer hour"></div>
-            <div class="pointer minute"></div>
-            <div class="pointer second"></div>
-            <div class="point"></div>
-          </div>
+        <box-time id="box-time">
           <div id="time" class="time"></div>
           <div class="date">
             <span id="time-month" class="time-month"></span>
             <span id="time-week" class="time-week"></span>
           </div>
         </box-time>
-        <div class="search">
+        <div id="search" class="search">
           <div class="search-box">
-            <div class="search-select">
-              <i class="fa fa-paw" style="font-size: 24px"></i>
+            <div class="search-select" onclick="selectSearch()">
+              <i id="searchIcon" class="fa fa-paw" style="font-size: 24px"></i>
+              <div class="search-select-list">
+                <ul class="search-select-list-ul">
+                  <li
+                    class="search-select-list-ul-li"
+                    onclick="searchChange(this)"
+                  >
+                    <i class="fa fa-paw" style="font-size: 24px"></i>百度
+                  </li>
+                  <li
+                    class="search-select-list-ul-li"
+                    onclick="searchChange(this)"
+                  >
+                    <i class="fa fa-search" style="font-size: 24px"></i>必应
+                  </li>
+                  <li
+                    class="search-select-list-ul-li"
+                    onclick="searchChange(this)"
+                  >
+                    <i class="fa fa-google" style="font-size: 24px"></i>谷歌
+                  </li>
+                  <li
+                    class="search-select-list-ul-li"
+                    onclick="searchChange(this)"
+                    style="padding: 12px 32px 12px 12px"
+                  >
+                    <i class="fa fa-facebook" style="font-size: 24px"></i>F搜
+                  </li>
+                </ul>
+              </div>
             </div>
             <input
               id="input-word"
@@ -54,10 +86,136 @@
             <ul id="list"></ul>
           </div>
         </div>
-        <button class="but-img" onclick="change()">切换背景</button>
-        <div id="app-gird" class="app-icon flex1">
-          <ul class="app-gird">
-            <li class="app-li">
+        <div class="app-icon flex1">
+          <ul id="app-gird" class="app-gird">
+            <!-- 默认网站链接 -->
+            <li class="app-li user">
+              <div class="app-div">
+                <a
+                  href="https://www.baidu.com"
+                  class="app-a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><img
+                    class="app-img"
+                    src="https://api.xinac.net/icon/?url=www.baidu.com"
+                    alt="百度"
+                /></a>
+                <div class="app-del" onclick="appDelMine(this)">
+                  <i
+                    class="fa fa-close"
+                    style="font-size: 48px; color: rgba(255, 4, 4, 0.8)"
+                  ></i>
+                </div>
+              </div>
+              <p class="app-title">百度</p>
+            </li>
+            <li class="app-li user">
+              <div class="app-div">
+                <a
+                  href="https://www.bilibili.com"
+                  class="app-a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><img
+                    class="app-img"
+                    src="https://api.xinac.net/icon/?url=www.bilibili.com"
+                    alt="哔哩哔哩"
+                /></a>
+                <div class="app-del" onclick="appDelMine(this)">
+                  <i
+                    class="fa fa-close"
+                    style="font-size: 48px; color: rgba(255, 4, 4, 0.8)"
+                  ></i>
+                </div>
+              </div>
+              <p class="app-title">哔哩哔哩</p>
+            </li>
+            <li class="app-li user">
+              <div class="app-div">
+                <a
+                  href="https://www.iqiyi.com"
+                  class="app-a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><img
+                    class="app-img"
+                    src="https://api.xinac.net/icon/?url=www.iqiyi.com"
+                    alt="爱奇艺"
+                /></a>
+                <div class="app-del" onclick="appDelMine(this)">
+                  <i
+                    class="fa fa-close"
+                    style="font-size: 48px; color: rgba(255, 4, 4, 0.8)"
+                  ></i>
+                </div>
+              </div>
+              <p class="app-title">爱奇艺</p>
+            </li>
+            <li class="app-li user">
+              <div class="app-div">
+                <a
+                  href="https://www.weibo.com"
+                  class="app-a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><img
+                    class="app-img"
+                    src="https://api.xinac.net/icon/?url=www.weibo.com"
+                    alt="微博"
+                /></a>
+                <div class="app-del" onclick="appDelMine(this)">
+                  <i
+                    class="fa fa-close"
+                    style="font-size: 48px; color: rgba(255, 4, 4, 0.8)"
+                  ></i>
+                </div>
+              </div>
+              <p class="app-title">微博</p>
+            </li>
+            <li class="app-li user">
+              <div class="app-div">
+                <a
+                  href="https://www.zhihu.com"
+                  class="app-a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><img
+                    class="app-img"
+                    src="https://api.xinac.net/icon/?url=www.zhihu.com"
+                    alt="知乎"
+                /></a>
+                <div class="app-del" onclick="appDelMine(this)">
+                  <i
+                    class="fa fa-close"
+                    style="font-size: 48px; color: rgba(255, 4, 4, 0.8)"
+                  ></i>
+                </div>
+              </div>
+              <p class="app-title">知乎</p>
+            </li>
+            <li class="app-li user">
+              <div class="app-div">
+                <a
+                  href="https://y.qq.com/"
+                  class="app-a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><img
+                    class="app-img"
+                    src="https://api.xinac.net/icon/?url=y.qq.com"
+                    alt="QQ音乐"
+                /></a>
+                <div class="app-del" onclick="appDelMine(this)">
+                  <i
+                    class="fa fa-close"
+                    style="font-size: 48px; color: rgba(255, 4, 4, 0.8)"
+                  ></i>
+                </div>
+              </div>
+              <p class="app-title">QQ音乐</p>
+            </li>
+            <li class="app-li user">
               <div class="app-div">
                 <a
                   href="https://www.taobao.com"
@@ -67,7 +225,7 @@
                   ><img
                     class="app-img"
                     src="https://api.xinac.net/icon/?url=www.taobao.com"
-                    alt="爱淘宝"
+                    alt="淘宝"
                 /></a>
                 <div class="app-del" onclick="appDelMine(this)">
                   <i
@@ -76,10 +234,32 @@
                   ></i>
                 </div>
               </div>
-              <p class="app-title">爱淘宝</p>
+              <p class="app-title">淘宝</p>
             </li>
+            <li class="app-li user">
+              <div class="app-div">
+                <a
+                  href="https://www.jd.com"
+                  class="app-a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><img
+                    class="app-img"
+                    src="https://api.xinac.net/icon/?url=www.jd.com"
+                    alt="京东"
+                /></a>
+                <div class="app-del" onclick="appDelMine(this)">
+                  <i
+                    class="fa fa-close"
+                    style="font-size: 48px; color: rgba(255, 4, 4, 0.8)"
+                  ></i>
+                </div>
+              </div>
+              <p class="app-title">京东</p>
+            </li>
+            <!-- 工具app -->
             <!-- 添加app -->
-            <li class="app-li">
+            <li class="app-li default">
               <div class="app-div">
                 <a href="#" class="app-a" onclick="appAdd()"
                   ><i
@@ -88,10 +268,10 @@
                   ></i
                 ></a>
               </div>
-              <p class="app-title"></p>
+              <p class="app-title">添加</p>
             </li>
             <!-- 删除app -->
-            <li class="app-li">
+            <li class="app-li default">
               <div class="app-div">
                 <a href="#" class="app-a app-del-on" onclick="appDel()"
                   ><i
@@ -100,11 +280,61 @@
                   ></i
                 ></a>
               </div>
-              <p class="app-title"></p>
+              <p class="app-title">删除</p>
+            </li>
+            <!-- 设置app -->
+            <li class="app-li default">
+              <div class="app-div">
+                <a href="#" class="app-a" onclick="setup()"
+                  ><i
+                    class="fa fa-cog"
+                    style="font-size: 36px; color: rgba(0, 25, 247, 0.699)"
+                  ></i
+                ></a>
+              </div>
+              <p class="app-title">设置</p>
+            </li>
+            <!-- 背景图更换 -->
+            <li class="app-li default">
+              <div class="app-div">
+                <a href="#" class="app-a" onclick="change()"
+                  ><i
+                    class="fa fa-file-photo-o"
+                    style="font-size: 36px; color: rgba(230, 149, 27, 0.89)"
+                  ></i
+                ></a>
+              </div>
+              <p class="app-title">更换背景</p>
+            </li>
+            <!-- 备忘录 -->
+            <li class="app-li default">
+              <div class="app-div">
+                <a href="#" class="app-a" onclick="notebook()"
+                  ><i
+                    class="fa fa-book"
+                    style="font-size: 36px; color: rgba(9, 33, 243, 0.856)"
+                  ></i
+                ></a>
+              </div>
+              <p class="app-title">备忘录</p>
             </li>
           </ul>
         </div>
-        <div class="footer"></div>
+        <!-- 页脚声明 -->
+        <div class="footer">
+          <div style="color: white">Copyright 2022 by</div>
+          <a
+            href="https://www.youxianxiaolu.com"
+            style="
+              text-decoration: none;
+              margin-left: 10px;
+              color: rgb(11, 202, 236);
+            "
+            target="_blank"
+            rel="noopener noreferrer"
+            >悠闲小路</a
+          >
+        </div>
         <wallpaper>
           <div id="mao" class="mao"></div>
           <img id="bgimg" class="bg" src="./images/yun.jpg" alt="beijing" />
@@ -127,26 +357,200 @@
         <button class="app-add-btn" onclick="appAdd()">取消</button>
       </div>
     </div>
-    <!-- app删除窗口 -->
-    <!-- <div class="app-del">
-      <div class="app-del-lists"></div>
-      <div class="app-del-div-btn">
-        <button class="app-del-btn" onclick="appDels()">确定</button>
-        <button class="app-del-btn" onclick="appDel()">取消</button>
+    <!-- 设置窗口 -->
+    <div class="app-setup">
+      <div
+        style="
+          align-self: flex-start;
+          background-color: rgba(0, 0, 0, 0.5);
+          width: 38px;
+          height: 38px;
+          text-align: center;
+          cursor: pointer;
+        "
+        onclick="setupClose()"
+      >
+        <i
+          class="fa fa-close"
+          style="font-size: 36px; color: rgba(255, 4, 4, 0.8)"
+        ></i>
       </div>
-    </div> -->
-    <!-- 右键菜单 -->
-    <!-- <div class="rightmenu">
-      <ul class="menu-list">
-        <li class="menu-item">
-          <i class="fa fa-trash-o" style="font-size: 20px; color: red"></i>
-          <span>删除</span>
-        </li>
-        <li class="menu-item">
-          <span>编辑</span>
-        </li>
-      </ul>
-    </div> -->
+      <div
+        class="setup-list"
+        style="
+          flex-direction: row;
+          width: 168px;
+          justify-content: flex-start;
+          margin-top: 5px;
+        "
+      >
+        <span class="setup-list-span" style="margin-right: 10px">夜间模式</span>
+
+        <input type="checkbox" id="range" onclick="oncheckbox(this)" />
+      </div>
+      <div class="setup-list">
+        <span class="setup-list-span">图标大小</span>
+        <div class="setup-list-div">
+          <input
+            class="range"
+            type="range"
+            id="range1"
+            min="50"
+            max="200"
+            value="100"
+          />
+          <input type="text" id="range1-1" style="width: 30px" value="100" />
+        </div>
+      </div>
+      <div class="setup-list">
+        <span class="setup-list-span">图标圆角</span>
+        <div class="setup-list-div">
+          <input
+            class="range"
+            type="range"
+            id="range1"
+            min="0"
+            max="50"
+            value="14"
+          />
+          <input type="text" id="range2-1" style="width: 30px" value="14" />
+        </div>
+      </div>
+      <div class="setup-list">
+        <span class="setup-list-span">图标字体大小</span>
+        <div class="setup-list-div">
+          <input
+            class="range"
+            type="range"
+            id="range3"
+            min="5"
+            max="22"
+            value="14"
+          />
+          <input type="text" id="range3-1" style="width: 30px" value="14" />
+        </div>
+      </div>
+      <div class="setup-list">
+        <span class="setup-list-span">内部图标大小</span>
+        <div class="setup-list-div">
+          <input
+            class="range"
+            type="range"
+            id="range4"
+            min="20"
+            max="100"
+            value="60"
+          />
+          <input type="text" id="range4-1" style="width: 30px" value="60" />
+        </div>
+      </div>
+      <div class="setup-list">
+        <span class="setup-list-span">内部图标圆角</span>
+        <div class="setup-list-div">
+          <input
+            class="range"
+            type="range"
+            id="range5"
+            min="0"
+            max="50"
+            value="14"
+          />
+          <input type="text" id="range5-1" style="width: 30px" value="14" />
+        </div>
+      </div>
+      <div class="setup-list">
+        <span class="setup-list-span">搜索框长度</span>
+        <div class="setup-list-div">
+          <input
+            class="range"
+            type="range"
+            id="range6"
+            min="100"
+            max="1000"
+            value="500"
+          />
+          <input type="text" id="range6-1" style="width: 30px" value="500" />
+        </div>
+      </div>
+      <div class="setup-list">
+        <span class="setup-list-span">搜索框圆角</span>
+        <div class="setup-list-div">
+          <input
+            class="range"
+            type="range"
+            id="range7"
+            min="0"
+            max="50"
+            value="25"
+          />
+          <input type="text" id="range7-1" style="width: 30px" value="25" />
+        </div>
+      </div>
+      <div class="setup-list">
+        <button class="setup-btn" onclick="reset()">恢复默认设置</button>
+      </div>
+      <div class="setup-list">
+        <button class="setup-btn" style="color: red" onclick="resetAll()">
+          重置网站 删除所有缓存
+        </button>
+      </div>
+    </div>
+    <!-- 备忘录 -->
+    <div class="noteBook">
+      <div class="noteBook-main">
+        <div class="noteBook-toolbar">
+          <i
+            class="fa fa-save nb"
+            style="font-size: 24px; margin-left: 20px; cursor: pointer"
+            onclick="noteBookSave()"
+          ></i>
+          <i
+            class="fa fa-thumb-tack nb"
+            style="font-size: 24px; margin-left: 20px; cursor: pointer"
+            onclick="noteBookShow()"
+          ></i>
+          <i
+            class="fa fa-trash-o nb"
+            style="font-size: 24px; margin-left: 20px; cursor: pointer"
+            onclick="noteBookDel()"
+          ></i>
+          <i
+            class="fa fa-close nb"
+            style="
+              font-size: 24px;
+              margin-left: auto;
+              margin-right: 10px;
+              cursor: pointer;
+            "
+            onclick="noteBookClose()"
+          ></i>
+        </div>
+        <textarea
+          class="noteBook-text"
+          id="noteBookTxt"
+          cols="30"
+          rows="10"
+        ></textarea>
+      </div>
+    </div>
+    <!-- 备忘录show -->
+    <div class="noteBookShow">
+      <i
+        class="fa fa-close nb"
+        style="
+          font-size: 16px;
+          cursor: pointer;
+          padding: 3px 0;
+          position: fixed;
+        "
+        onclick="noteBooShowkClose()"
+      ></i>
+      <span
+        id="noteBookShowSpan"
+        style="flex: 1; width: 100%; padding: 0px 5px; margin: 20px 0"
+        onclick="notebook()"
+      ></span>
+    </div>
     <script src="scripts/main.js" Content-Type="text/javascript"></script>
   </body>
 </html>

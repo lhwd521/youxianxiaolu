@@ -3,6 +3,74 @@ let log = function (i) {
   console.log(i);
 };
 
+//调用本地浏览器图标缓存信息
+let data = window.localStorage.getItem("user");
+let defaultLi = document.querySelectorAll(".default");
+//保留有default class样式的li，添加至用户缓存最后
+if (data) {
+  let liStr = "";
+  for (let index = 0; index < defaultLi.length; index++) {
+    liStr += defaultLi[index].outerHTML;
+  }
+  data = data + liStr;
+  document.getElementById("app-gird").innerHTML = data;
+}
+//调用本地背景图缓存
+let bgImgSrc = window.localStorage.getItem("bg-img");
+if (bgImgSrc) {
+  let anNiu = document.getElementById("bgimg");
+  anNiu.src = "images/" + bgImgSrc + ".jpg";
+}
+window.localStorage.getItem("bg-img");
+//调用本地设置信息
+let setupItem = [
+  "--gird-column",
+  "--icon-radius",
+  "--app-fontsize",
+  "--app-imgHeight",
+  "--appImg-radius",
+  "--search-width",
+  "--search-radius",
+  "--gird-row",
+  "--app-imgWidth",
+];
+let setupData = [
+  "gird-c",
+  "icon-r",
+  "app-f",
+  "app-imgH",
+  "appImg-r",
+  "search-w",
+  "search-r",
+  "gird-r",
+  "app-imgW",
+  "daynight",
+];
+for (let index = 0; index < 10; index++) {
+  let foo = window.localStorage.getItem(setupData[index]);
+  let root = document.documentElement;
+  if (foo && index < 9) {
+    root.style.setProperty(setupItem[index], foo);
+  } else if (foo === "day" && index === 9) {
+    day();
+  } else if (foo === "night" && index === 9) {
+    night();
+  }
+}
+//调用备忘录数据
+let noteBookData = window.localStorage.getItem("notebook");
+let noteBookShowData = window.localStorage.getItem("notebookshow");
+if (noteBookData) {
+  let txt = document.getElementById("noteBookTxt");
+  txt.value = noteBookData;
+}
+if (noteBookShowData === "1") {
+  let txt = document.getElementById("noteBookTxt");
+  let show = document.getElementById("noteBookShowSpan");
+  document.body.classList.toggle("active-noteBookShow");
+  show.innerHTML = txt.value;
+}
+
 //切换背景
 let imgNum = 0;
 let img = ["yun", "sun", "woman", "deng", "sky", "yanhuo"];
@@ -11,6 +79,8 @@ function change() {
   imgNum = imgNum + 1;
   imgNum = imgNum % img.length;
   anNiu.src = "images/" + img[imgNum] + ".jpg";
+  //保留用户缓存
+  window.localStorage.setItem("bg-img", img[imgNum]);
   let clock = document.querySelector(".clock");
   if (imgNum > 2) {
     clock.classList.add("dark");
@@ -47,29 +117,6 @@ function setTime() {
   let minutes = time.getMinutes();
   let seconds = time.getSeconds();
 
-  hourStyle.style.transform = `translate(-50%, -100%) rotate(${scale(
-    hours,
-    0,
-    12,
-    0,
-    360
-  )}deg)`;
-
-  minuteStyle.style.transform = `translate(-50%, -100%) rotate(${scale(
-    minutes,
-    0,
-    60,
-    0,
-    360
-  )}deg)`;
-  secondStyle.style.transform = `translate(-50%, -100%) rotate(${scale(
-    seconds,
-    0,
-    60,
-    0,
-    360
-  )}deg)`;
-
   times.innerHTML = `${hour}:${minutes < 10 ? `0${minutes}` : minutes}`;
   timeMonth.innerHTML = `${month}月${date}日`;
   timeWeek.innerHTML = `${days[day]}`;
@@ -91,7 +138,6 @@ input.onfocus = function () {
 };
 let body = document.getElementById("body");
 //监听鼠标点击事件，焦点不在input中则清除样式
-let delOn = 0;
 body.addEventListener("click", function (event) {
   if (document.activeElement.id != "input-word") {
     mao.classList.remove("on");
@@ -99,11 +145,11 @@ body.addEventListener("click", function (event) {
     input.value = "";
   }
   //第二个条件，判断鼠标是否点击到app上
-  let ulClick = document.getElementById("app-gird").contains(event.target);
-  if (!ulClick && delOn === 1) {
+  let boxTime = document.getElementById("box-time").contains(event.target);
+  let search = document.getElementById("search").contains(event.target);
+  let x = document.getElementById("body").classList.contains("active-del");
+  if ((search || boxTime) && x) {
     document.body.classList.toggle("active-del");
-    delOn = 0;
-    log(delOn);
   }
 });
 
@@ -115,8 +161,21 @@ input.onkeydown = function (event) {
     let lis = list.getElementsByTagName("li");
     //如果选中第一项就翻译
     if (liNum % lis.length === 0) {
-      let sou = `https://fanyi.baidu.com/#en/zh/${input.value}`;
-      window.open(sou);
+      let str = input.value;
+      str = str.replace("翻译：", "");
+      if (searchWeb === 1) {
+        let sou = `https://fanyi.baidu.com/#en/zh/${str}`;
+        window.open(sou);
+      } else if (searchWeb === 2) {
+        let sou = `https://www.bing.com/dict/search?q=${str}`;
+        window.open(sou);
+      } else if (searchWeb === 3) {
+        let sou = `https://translate.google.cn/?sl=en&tl=zh-CN&text=${str}`;
+        window.open(sou);
+      } else if (searchWeb === 4) {
+        let sou = `https://fanyi.baidu.com/#en/zh/${str}`;
+        window.open(sou);
+      }
     } else {
       souSuo();
     }
@@ -153,8 +212,17 @@ input.onkeydown = function (event) {
 
 function souSuo() {
   let word = document.getElementById("input-word").value;
-  if (word.length != 0) {
+  if (word.length != 0 && searchWeb === 1) {
     let sou = `https://www.baidu.com/s?word=${word}`;
+    window.open(sou);
+  } else if (word.length != 0 && searchWeb === 2) {
+    let sou = `https://www.bing.com/search?q=${word}`;
+    window.open(sou);
+  } else if (word.length != 0 && searchWeb === 3) {
+    let sou = `https://www.google.com/search?q=${word}`;
+    window.open(sou);
+  } else if (word.length != 0 && searchWeb === 4) {
+    let sou = `https://fsoufsou.com/search?q=${word}`;
     window.open(sou);
   } else {
     log("请输入信息");
@@ -167,6 +235,29 @@ function cl() {
   list.innerHTML = "";
   input.value = "";
 }
+//选择搜索引擎(1.百度 2.必应 3.谷歌 4.f搜)
+let searchWeb = 1;
+
+function selectSearch() {
+  document.body.classList.toggle("active-search");
+}
+
+function searchChange(e) {
+  let foo = e.getElementsByTagName("i")[0];
+  if (foo.classList.contains("fa-paw")) {
+    document.getElementById("searchIcon").className = "fa fa-paw";
+    searchWeb = 1;
+  } else if (foo.classList.contains("fa-search")) {
+    document.getElementById("searchIcon").className = "fa fa-search";
+    searchWeb = 2;
+  } else if (foo.classList.contains("fa-google")) {
+    document.getElementById("searchIcon").className = "fa fa-google";
+    searchWeb = 3;
+  } else if (foo.classList.contains("fa-facebook")) {
+    document.getElementById("searchIcon").className = "fa fa-facebook";
+    searchWeb = 4;
+  }
+}
 
 //联想搜索功能
 let btn = document.getElementById("input-word");
@@ -177,7 +268,15 @@ btn.onkeyup = function (event) {
   let code = event.keyCode;
   if (val && code !== 40 && code !== 38) {
     let oScript = document.createElement("script");
-    oScript.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${val}&cb=callback`;
+    if (searchWeb === 1) {
+      oScript.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${val}&cb=callback`;
+    } else if (searchWeb === 2) {
+      oScript.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${val}&cb=callback`;
+    } else if (searchWeb === 3) {
+      oScript.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${val}&cb=callback`;
+    } else if (searchWeb === 4) {
+      oScript.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${val}&cb=callback`;
+    }
     document.body.appendChild(oScript);
     document.body.removeChild(oScript);
     liNum = -1;
@@ -186,28 +285,76 @@ btn.onkeyup = function (event) {
     list.style.display = "none";
   }
 };
-
+//联想搜索返回函数
 function callback(data) {
   list.style.display = "block";
   let str = "";
-  if (data.s.length > 0) {
+  if (searchWeb === 1 && data.s.length > 0) {
     str = `<li class="list-li"><a class="aSou" href = "https://fanyi.baidu.com/#en/zh/${input.value}" target="_blank" rel="noopener noreferrer" onclick="cl()">翻译：${input.value}</a></li>`;
     data.s.forEach(function (val) {
       str += `<li class="list-li"><i class="fa fa-search"></i><a class="aSou" href = "https://www.baidu.com/s?wd=${val}" target="_blank" rel="noopener noreferrer" onclick="cl()">${val}</a></li>`;
+    });
+    list.innerHTML = str;
+  } else if (searchWeb === 2 && data.s.length > 0) {
+    str = `<li class="list-li"><a class="aSou" href = "https://www.bing.com/dict/search?q=${input.value}" target="_blank" rel="noopener noreferrer" onclick="cl()">翻译：${input.value}</a></li>`;
+    data.s.forEach(function (val) {
+      str += `<li class="list-li"><i class="fa fa-search"></i><a class="aSou" href = "https://www.bing.com/search?q=${val}" target="_blank" rel="noopener noreferrer" onclick="cl()">${val}</a></li>`;
+    });
+    list.innerHTML = str;
+  } else if (searchWeb === 3 && data.s.length > 0) {
+    str = `<li class="list-li"><a class="aSou" href = "https://translate.google.cn/?sl=en&tl=zh-CN&text=${input.value}" target="_blank" rel="noopener noreferrer" onclick="cl()">翻译：${input.value}</a></li>`;
+    data.s.forEach(function (val) {
+      str += `<li class="list-li"><i class="fa fa-search"></i><a class="aSou" href = "https://www.google.com/search?q=${val}" target="_blank" rel="noopener noreferrer" onclick="cl()">${val}</a></li>`;
+    });
+    list.innerHTML = str;
+  } else if (searchWeb === 4 && data.s.length > 0) {
+    str = `<li class="list-li"><a class="aSou" href = "https://fanyi.baidu.com/#en/zh/${input.value}" target="_blank" rel="noopener noreferrer" onclick="cl()">翻译：${input.value}</a></li>`;
+    data.s.forEach(function (val) {
+      str += `<li class="list-li"><i class="fa fa-search"></i><a class="aSou" href = "https://fsoufsou.com/search?q=${val}" target="_blank" rel="noopener noreferrer" onclick="cl()">${val}</a></li>`;
     });
     list.innerHTML = str;
   } else {
     list.style.display = "none";
   }
 }
-//打开、关闭添加app窗口
+
+//打开、关闭 添加app窗口
 function appAdd() {
   let appUrl = document.getElementById("app-add-url");
   let appName = document.getElementById("app-add-name");
   appUrl.value = "";
   appName.value = "";
   document.body.classList.toggle("active");
+  //如果删除按钮开启则关闭
+  let del = document.getElementById("body").classList.contains("active-del");
+  if (del) {
+    document.body.classList.toggle("active-del");
+  }
+  let appAddInput = document.querySelectorAll(".app-add-input");
+  for (let index = 0; index < appAddInput.length; index++) {
+    appAddInput[index].onkeydown = function (event) {
+      let code = event.keyCode;
+      //按回车添加
+      if (code == 13) {
+        appAdds();
+      }
+    };
+  }
 }
+
+//保存数据到浏览器缓存
+function save() {
+  if (data) {
+    window.localStorage.removeItem("user");
+  }
+  let userLi = document.querySelectorAll(".user");
+  let liStr = "";
+  for (let index = 0; index < userLi.length; index++) {
+    liStr += userLi[index].outerHTML;
+  }
+  window.localStorage.setItem("user", liStr);
+}
+
 //点击确认，加入网址
 function appAdds() {
   //抓取 两个input.value
@@ -218,7 +365,7 @@ function appAdds() {
   let ulGird = document.querySelector(".app-gird");
   if (appUrl.value !== "" && appName.value !== "") {
     ulGird.innerHTML =
-      `<li class="app-li">
+      `<li class="app-li user">
               <div class="app-div">
                 <a
                   href="${appUrl.value}"
@@ -235,51 +382,198 @@ function appAdds() {
               <p class="app-title">${appName.value}</p>
             </li>` + ulGird.innerHTML;
     appAdd();
+    //保存ul信息到浏览器缓存;
+    save();
   } else {
     alert("请填写网址或名称！");
   }
 }
-//打开、关闭删除app
+//打开、关闭 删除app窗口
 function appDel() {
-  if (delOn === 0) {
-    delOn = 1;
-  } else {
-    delOn = 0;
-  }
   document.body.classList.toggle("active-del");
 }
-
+//删除自身
 function appDelMine(e) {
   let foo = e.parentNode.parentNode;
   foo.remove();
+  //保存ul信息到浏览器缓存
+  save();
 }
 
-// function appDel() {
-//   let ulGird = document.querySelector(".app-gird");
-//   let delMenu = document.querySelector(".app-del-lists");
-//   delMenu.innerHTML = "";
-//从最后开始需要保留的系统icon数量
-//   let baoliu = 2;
-//   for (
-//     let index = ulGird.getElementsByTagName("p").length - (baoliu + 1);
-//     index >= 0;
-//     index--
-//   ) {
-//     delMenu.innerHTML =
-//       `<div class="app-del-list"><img class="app-del-img" src="${
-//         ulGird.getElementsByTagName("img")[index].src
-//       }" /><span class="app-del-text">${
-//         ulGird.getElementsByTagName("p")[index].innerHTML
-//       }</span><button onclick="appDelOne(this)">删除</button></div>` +
-//       delMenu.innerHTML;
-//   }
-//   document.body.classList.toggle("active-del");
-// }
+//设置
+function setup() {
+  document.body.classList.toggle("active-setup");
+  let range = document.querySelectorAll(".range");
+  let root = document.documentElement;
+  let attribute = [
+    "--gird-column",
+    "--icon-radius",
+    "--app-fontsize",
+    "--app-imgHeight",
+    "--appImg-radius",
+    "--search-width",
+    "--search-radius",
+  ];
+  let danwei = ["px", "px", "px", "%", "px", "px", "px"];
+  for (let index = 0; index < range.length; index++) {
+    range[index].addEventListener("input", (e) => {
+      let val = e.target.value;
+      let show = e.target.nextElementSibling;
+      show.value = val;
+      root.style.setProperty(attribute[index], val + danwei[index]);
+      //保存配置
+      window.localStorage.setItem(setupData[index], val + danwei[index]);
+      if (index === 0) {
+        root.style.setProperty("--gird-row", val + danwei[index]);
+        //保存配置
+        window.localStorage.setItem(setupData[7], val + danwei[index]);
+      } else if (index === 3) {
+        root.style.setProperty("--app-imgWidth", val + danwei[index]);
+        //保存配置
+        window.localStorage.setItem(setupData[8], val + danwei[index]);
+      }
+    });
+  }
+}
 
-// let delLiNum = [];
+function setupClose() {
+  document.body.classList.toggle("active-setup");
+}
+//重置setup值
+function reset() {
+  let range = document.querySelectorAll(".range");
+  let root = document.documentElement;
+  let attribute = [
+    "--gird-column",
+    "--icon-radius",
+    "--app-fontsize",
+    "--app-imgHeight",
+    "--appImg-radius",
+    "--search-width",
+    "--search-radius",
+  ];
+  let val = ["100", "14", "14", "60", "14", "500", "25"];
+  let danwei = ["px", "px", "px", "%", "px", "px", "px"];
+  for (let index = 0; index < range.length; index++) {
+    let show = range[index].nextElementSibling;
+    show.value = val[index];
+    root.style.setProperty(attribute[index], val[index] + danwei[index]);
+    //保存配置
+    window.localStorage.setItem(setupData[index], val[index] + danwei[index]);
+    if (index === 0) {
+      root.style.setProperty("--gird-row", val[index] + danwei[index]);
+      //保存配置
+      window.localStorage.setItem(setupData[7], val[index] + danwei[index]);
+    } else if (index === 3) {
+      root.style.setProperty("--app-imgWidth", val[index] + danwei[index]);
+      //保存配置
+      window.localStorage.setItem(setupData[8], val[index] + danwei[index]);
+    }
+  }
+  day();
+}
 
-// function appDelOne(e) {
-//   var a = e.parentNode.getElementsByTagName("span")[0];
-//   a.classList.add("del");
-//   log(e.parentNode);
-// }
+//重置所有数据
+function resetAll() {
+  let tips = window.confirm("重置会删除所有保存的网站数据，请谨慎确认！");
+  if (tips) {
+    localStorage.clear();
+    window.open("https://youxianxiaolu.com/mashanggo", "_self");
+  } else {
+  }
+}
+
+//夜间模式
+function oncheckbox(e) {
+  if (e.checked == true) {
+    night();
+  } else {
+    day();
+  }
+}
+//白天
+function day() {
+  let root = document.documentElement;
+  root.style.setProperty("--main-color", "rgb(255, 255, 255, 0.6)");
+  root.style.setProperty("--main-colorHover", "rgb(255, 255, 255, 0.8)");
+  root.style.setProperty("--main-colorUl", "rgb(255, 255, 255, 0.3)");
+  root.style.setProperty("--main-colorUlHover", "rgb(255, 255, 255, 0.8)");
+  root.style.setProperty("--main-colorApp", "rgb(255, 255, 255, 0.5)");
+  root.style.setProperty("--main-colorAdd", "rgb(255, 255, 255)");
+  root.style.setProperty("--main-colorSetup", "rgb(255, 255, 255, 0.8)");
+  root.style.setProperty("--main-colorSearchList", "rgb(255, 255, 255, 0.6)");
+  root.style.setProperty("--main-colorListHover", "rgb(255, 255, 255, 0.9)");
+  root.style.setProperty("--main-colorFont", "black");
+  root.style.setProperty("--main-colorSelectHover", "white");
+  root.style.setProperty("--main-colorNotebook", "white");
+  root.style.setProperty("--main-colorNbtool", "rgb(128, 128, 128, 0.3)");
+  root.style.setProperty("--main-colorNbicon", "rgba(0, 0, 0, 0.836)");
+  root.style.setProperty("--main-colornbshow", "rgba(255, 255, 255, 0.6)");
+  document.getElementById("range").checked = false;
+  //保存配置
+  window.localStorage.setItem(setupData[9], "day");
+}
+//夜晚
+function night() {
+  let root = document.documentElement;
+  let color = "rgb(12,12,12,0.85)";
+  root.style.setProperty("--main-color", color);
+  root.style.setProperty("--main-colorHover", color);
+  root.style.setProperty("--main-colorUl", color);
+  root.style.setProperty("--main-colorUlHover", color);
+  root.style.setProperty("--main-colorApp", color);
+  root.style.setProperty("--main-colorAdd", color);
+  root.style.setProperty("--main-colorSetup", color);
+  root.style.setProperty("--main-colorSearchList", color);
+  root.style.setProperty("--main-colorListHover", color);
+  root.style.setProperty("--main-colorFont", "white");
+  root.style.setProperty("--main-colorSelectHover", "black");
+  root.style.setProperty("--main-colorNotebook", color);
+  root.style.setProperty("--main-colorNbtool", color);
+  root.style.setProperty("--main-colorNbicon", color);
+  root.style.setProperty("--main-colornbshow", color);
+  document.getElementById("range").checked = true;
+  //保存配置
+  window.localStorage.setItem(setupData[9], "night");
+}
+
+//备忘录
+function notebook() {
+  document.body.classList.toggle("active-notebook");
+}
+
+function noteBookClose() {
+  document.body.classList.toggle("active-notebook");
+}
+function noteBooShowkClose() {
+  document.body.classList.toggle("active-noteBookShow");
+  window.localStorage.removeItem("notebookshow");
+}
+//备忘录保存
+function noteBookSave() {
+  let txt = document.getElementById("noteBookTxt");
+  let show = document.getElementById("noteBookShowSpan");
+  show.innerHTML = txt.value;
+  window.localStorage.setItem("notebook", txt.value);
+}
+//备忘录图钉
+function noteBookShow() {
+  let txt = document.getElementById("noteBookTxt");
+  let show = document.getElementById("noteBookShowSpan");
+  document.body.classList.toggle("active-noteBookShow");
+  show.innerHTML = txt.value;
+  if (window.localStorage.getItem("notebookshow") === "1") {
+    window.localStorage.removeItem("notebookshow");
+  } else {
+    window.localStorage.setItem("notebookshow", "1");
+  }
+}
+// 备忘录删除
+function noteBookDel() {
+  let txt = document.getElementById("noteBookTxt");
+  txt.value = "";
+  let show = document.getElementById("noteBookShowSpan");
+  show.innerHTML = txt.value;
+  window.localStorage.removeItem("notebook");
+  window.localStorage.removeItem("notebookshow");
+}

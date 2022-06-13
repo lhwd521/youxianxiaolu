@@ -6,17 +6,53 @@
 }
 :root {
   --icon-radius: 14px;
+  --appImg-radius: 14px;
   --header-height: 6vh;
   --pointer-color: rgb(12, 12, 12);
-  --boxtime-height: 28vh;
+  --boxtime-height: 20vh;
   --search-radius: 25px;
   --search-height: 50px;
+  --search-width: 500px;
   --gird-column: 100px;
   --gird-row: 100px;
+  --app-fontsize: 14px;
+  --app-imgHeight: 60%;
+  --app-imgWidth: 60%;
+  --bg-color: white;
+  --main-color: rgb(255, 255, 255, 0.6);
+  --main-colorHover: rgb(255, 255, 255, 0.8);
+  --main-colorUl: rgb(255, 255, 255, 0.3);
+  --main-colorUlHover: rgb(255, 255, 255, 0.8);
+  --main-colorApp: rgb(255, 255, 255, 0.5);
+  --main-colorAdd: rgb(255, 255, 255);
+  --main-colorSetup: rgb(255, 255, 255, 0.8);
+  --main-colorSearchList: rgb(255, 255, 255, 0.6);
+  --main-colorSelectHover: white;
+  --main-colorListHover: rgb(255, 255, 255, 0.9);
+  --main-colorFont: black;
+  --main-colorNotebook: white;
+  --main-colorNbtool: rgb(128, 128, 128, 0.3);
+  --main-colorNbicon: rgba(0, 0, 0, 0.836);
+  --main-colornbshow: rgba(255, 255, 255, 0.6);
 }
+/* 超深黑#0c0c0c(12,12,12) */
+/* 灰#141414(20,20,20) */
+
 @media (max-width: 600px) {
   .clock {
     display: none;
+  }
+  .app-gird {
+    padding: 0 5vw !important;
+  }
+  .app-setup {
+    width: 70% !important;
+    top: 0 !important;
+    height: 100% !important;
+  }
+  .noteBook {
+    width: 90% !important ;
+    height: 60% !important;
   }
 }
 .flex1 {
@@ -40,16 +76,6 @@
   height: 100%;
   object-fit: cover;
 }
-.but-img {
-  border-radius: 25px;
-  height: 45px;
-  width: 100px;
-  margin: 20px auto;
-  font-size: 16px;
-  box-shadow: 0 0 10px 3px rgb(139, 137, 137);
-  border: none;
-  cursor: pointer;
-}
 .box-main {
   position: relative;
   height: 100vh;
@@ -68,57 +94,7 @@ box-time {
   height: var(--boxtime-height);
   user-select: none;
 }
-.clock {
-  position: relative;
-  height: 150px;
-  width: 150px;
-}
-.clock.dark {
-  --pointer-color: white;
-}
-.pointer {
-  background-color: var(--pointer-color);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 50px;
-  width: 6px;
-  transform-origin: bottom center;
-  transition: all 0s ease-in;
-}
-.pointer.hour {
-  transform: translate(-50%, -100%) rotate(0deg);
-}
-.pointer.minute {
-  transform: translate(-50%, -100%) rotate(0deg);
-  height: 75px;
-}
-.pointer.second {
-  transform: translate(-50%, -100%) rotate(0deg);
-  height: 75px;
-  background-color: red;
-}
-.point {
-  background-color: red;
-  width: 10px;
-  height: 10px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
-.point::after {
-  content: "";
-  background-color: var(--pointer-color);
-  width: 5px;
-  height: 5px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-}
+
 .time {
   font-size: 60px;
   color: #ffff;
@@ -131,6 +107,8 @@ box-time {
 .search {
   width: 100%;
   margin-top: 5px;
+  margin-bottom: 25px;
+  color: var(--main-colorFont);
 }
 .search-box {
   box-shadow: 0 0 10px 3px rgb(139, 137, 137);
@@ -138,14 +116,14 @@ box-time {
   z-index: 1;
   display: flex;
   border-radius: var(--search-radius);
-  max-width: 500px;
+  max-width: var(--search-width);
   height: var(--search-height);
   align-items: center;
   margin: 0 auto;
-  background-color: rgb(255, 255, 255, 0.6);
+  background-color: var(--main-color);
 }
 .search-box:hover {
-  background-color: rgb(255, 255, 255, 0.8);
+  background-color: var(--main-colorHover);
   cursor: pointer;
 }
 .search-select {
@@ -156,15 +134,49 @@ box-time {
   max-width: 50px;
   height: 100%;
   border-radius: var(--search-radius);
+  position: relative;
 }
 .search-select:hover {
-  background-color: white;
+  background-color: var(--main-colorSelectHover);
+}
+/* 百度、必应、google选择 */
+.search-select-list {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 120px;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  transition: 0.2s;
+  overflow: hidden;
+  background: var(--main-colorSearchList);
+}
+.search-select-list-ul {
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
+}
+.search-select-list-ul-li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 22px 12px 12px;
+}
+.search-select-list-ul-li:hover {
+  background-color: var(--main-colorListHover);
+  transition: 0.3s;
+}
+.active-search .search-select-list {
+  display: block;
 }
 .input-box {
   width: 100%;
   height: 100%;
   font-size: 14px;
-  color: #000;
+  color: var(--main-colorFont);
   outline: none;
   border: none;
   background-color: transparent;
@@ -194,6 +206,7 @@ box-time {
   font-size: 14px;
   padding: 0;
   overflow: hidden;
+  background-color: var(--main-colorUl);
 }
 .list-li {
   height: 30px;
@@ -206,18 +219,18 @@ box-time {
 }
 .list-li:hover {
   padding-left: 40px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--main-colorUlHover);
   transition: 0.3s;
 }
 .list-li.on {
   padding-left: 40px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--main-colorUlHover);
   transition: 0.3s;
 }
 .aSou {
   margin-left: 10px;
   text-decoration: none;
-  color: #000;
+  color: var(--main-colorFont);
   flex: 1;
 }
 .app-icon {
@@ -239,9 +252,9 @@ box-time {
   padding: 0 20vw;
 }
 .app-img {
-  height: 60%;
-  width: 60%;
-  border-radius: var(--icon-radius);
+  height: var(--app-imgHeight);
+  width: var(--app-imgWidth);
+  border-radius: var(--appImg-radius);
   object-fit: cover;
   background-repeat: no-repeat;
   background-size: cover;
@@ -262,7 +275,7 @@ li {
   width: 100%;
   overflow: hidden;
   border-radius: var(--icon-radius);
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: var(--main-colorApp);
 }
 .app-div:hover {
   box-shadow: 0 0 5px 5px rgb(0, 0, 0, 0.2);
@@ -285,8 +298,7 @@ li {
   display: block;
   text-align: center;
   color: white;
-  font-size: 14px;
-  line-height: 1.1;
+  font-size: var(--app-fontsize);
   text-shadow: 0 0 20px rgb(0 0 0 / 30%);
   text-overflow: ellipsis;
   overflow: hidden;
@@ -297,7 +309,7 @@ li {
   position: fixed;
   left: 50%;
   top: 40%;
-  background-color: #fff;
+  background-color: var(--main-colorAdd);
   transform: translate(-50%, -40%);
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
   overflow: hidden;
@@ -311,6 +323,7 @@ li {
   padding: 40px;
   margin: auto;
   border-radius: 25px;
+  color: var(--main-colorFont);
 }
 .app-add-title {
   font-size: 15px;
@@ -341,7 +354,7 @@ li {
 }
 /* 添加图标时，模糊背景，屏蔽选择 */
 .active .box {
-  filter: blur(20px);
+  filter: blur(10px);
   pointer-events: none;
   user-select: none;
 }
@@ -349,77 +362,6 @@ li {
   display: flex;
 }
 /* 删除app */
-/* .app-del-btn {
-  margin-top: 10px;
-  padding: 5px 20px;
-  font-size: 15px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.app-del-btn:hover {
-  background-color: rgba(2, 60, 250, 0.6);
-}
-.app-del {
-  position: fixed;
-  left: 50%;
-  top: 40%;
-  background-color: #fff;
-  transform: translate(-50%, -40%);
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
-  overflow: hidden;
-  z-index: 5;
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  height: 550px;
-  padding: 30px;
-  margin: auto;
-  border-radius: 25px;
-}
-.app-del-list {
-  font-size: 14px;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 5px;
-}
-.app-del-lists {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-}
-.app-del-div-btn {
-  display: flex;
-  justify-content: space-between;
-  align-items: space-between;
-  width: 100%;
-}
-.active-del .app-del {
-  display: flex;
-}
-.active-del .box {
-  filter: blur(20px);
-  pointer-events: none;
-  user-select: none;
-}
-.app-del-img {
-  height: 25px;
-  width: 25px;
-}
-.app-del-text {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width: 50%;
-  text-align: center;
-  height: 23px;
-}
-.app-del-text.del {
-  text-decoration: line-through;
-  color: red;
-} */
 .app-del {
   position: absolute;
   left: 0;
@@ -441,12 +383,307 @@ li {
 .app-del-on {
   position: relative;
 }
-/* .active-del .mao {
-  backdrop-filter: blur(6px);
-  background-color: rgba(255, 255, 255, 0.3);
-  position: absolute;
-  left: 0;
-  top: 0;
+.footer {
+  height: 3vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* 设置 */
+.app-setup {
+  display: none;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  height: 80%;
+  background-color: var(--main-colorSetup);
+  width: 20vw;
+  top: 10%;
+  right: 0;
+  z-index: 5;
+  box-shadow: 10px 10px 20px rgb(0 0 0 / 60%);
+  color: var(--main-colorFont);
+}
+
+.setup-list {
+  margin: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.active-setup .app-setup {
+  display: flex;
+}
+.setup-list-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.setup-list-span {
+  align-self: flex-start;
+  margin-bottom: 5px;
+}
+.setup-btn {
+  height: 30px;
+  cursor: pointer;
+}
+
+/* input range 样式 */
+input[type="range"] {
+  margin: 18px 5px;
+  -webkit-appearance: none;
+}
+/* Chrome & Safari */
+input[type="range"]::-webkit-slider-runnable-track {
+  background: rgb(5, 135, 221);
+  border-radius: 4px;
   width: 100%;
+  height: 8px;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  background: rgb(136, 136, 136);
+  border-radius: 50%;
+  margin-top: -5px;
+  cursor: pointer;
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-track {
+  background: rgb(5, 135, 221);
+  border-radius: 4px;
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  background: rgb(136, 136, 136);
+  border-radius: 50%;
+  margin-top: -5px;
+  cursor: pointer;
+}
+
+/* IE */
+input[type="range"]::-ms-track {
+  background: rgb(5, 135, 221);
+  border-radius: 4px;
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+}
+
+input[type="range"]::-ms-thumb {
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  background: rgb(136, 136, 136);
+  border-radius: 50%;
+  margin-top: -5px;
+  cursor: pointer;
+}
+
+/* input checkbox */
+input[type="checkbox"] {
+  position: relative;
+  left: 0;
+  top: -50%;
+  appearance: none;
+  --webkit-appearance: none;
+  --moz-appearance: none;
+  cursor: pointer;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 50px;
+  height: 22px;
+  position: absolute;
+  background: gray;
+  border-radius: 40px;
+  box-shadow: 0 0 3px black;
+}
+
+input[type="checkbox"]::after {
+  content: "";
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  box-shadow: 0 0 3px gray;
+  transition: 0.2s linear;
+}
+
+input:checked[type="checkbox"]::before {
+  background: #05c46b;
+}
+input:checked[type="checkbox"]::after {
+  left: 28px;
+}
+
+/* 备忘录 */
+.noteBook {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  background-color: var(--main-colorNotebook);
+  transform: translate(-50%, -40%);
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  z-index: 5;
+  display: none;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 550px;
+  height: 450px;
+  margin: auto;
+  border-radius: 15px;
+  color: var(--main-colorFont);
+}
+.noteBook-main {
+  flex: 2;
   height: 100%;
-} */
+  display: flex;
+  flex-direction: column;
+}
+.noteBook-toolbar {
+  height: 8%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-colorNbtool);
+}
+.noteBook-text {
+  flex: 1;
+  border: none;
+  resize: none;
+  padding: 15px 15px;
+  outline: 0;
+  background-color: var(--main-colorNotebook);
+  color: var(--main-colorFont);
+  font-size: 14px;
+}
+
+.active-notebook .noteBook {
+  display: flex;
+}
+.active-notebook .box {
+  filter: blur(10px);
+  background: var(--main-colorNbicon);
+  pointer-events: none;
+  user-select: none;
+}
+.active-noteBookShow .noteBookShow {
+  display: flex;
+}
+.noteBookShow {
+  position: fixed;
+  left: 5%;
+  top: 5%;
+  background-color: var(--main-colornbshow);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  z-index: 5;
+  display: none;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 280px;
+  height: 60px;
+  padding: 0 5px;
+  margin: auto;
+  border-radius: 5px;
+  color: var(--main-colorFont);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+}
+.noteBookShow:hover {
+  -webkit-animation: shake-right 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+    both;
+  animation: shake-right 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+@-webkit-keyframes shake-right {
+  0%,
+  100% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transform-origin: 100% 50%;
+    transform-origin: 100% 50%;
+  }
+  10% {
+    -webkit-transform: rotate(2deg);
+    transform: rotate(2deg);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: rotate(-4deg);
+    transform: rotate(-4deg);
+  }
+  30%,
+  50%,
+  70% {
+    -webkit-transform: rotate(4deg);
+    transform: rotate(4deg);
+  }
+  80% {
+    -webkit-transform: rotate(-2deg);
+    transform: rotate(-2deg);
+  }
+  90% {
+    -webkit-transform: rotate(2deg);
+    transform: rotate(2deg);
+  }
+}
+@keyframes shake-right {
+  0%,
+  100% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transform-origin: 100% 50%;
+    transform-origin: 100% 50%;
+  }
+  10% {
+    -webkit-transform: rotate(2deg);
+    transform: rotate(2deg);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: rotate(-4deg);
+    transform: rotate(-4deg);
+  }
+  30%,
+  50%,
+  70% {
+    -webkit-transform: rotate(4deg);
+    transform: rotate(4deg);
+  }
+  80% {
+    -webkit-transform: rotate(-2deg);
+    transform: rotate(-2deg);
+  }
+  90% {
+    -webkit-transform: rotate(2deg);
+    transform: rotate(2deg);
+  }
+}
+
+.nb:hover {
+  color: red;
+}
