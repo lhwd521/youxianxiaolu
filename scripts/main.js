@@ -1,7 +1,14 @@
 //调试
 let log = function (i) {
+  const time = new Date();
+  let minutes = time.getMinutes();
+  let seconds = time.getSeconds();
+  //显示时间
+  console.log(minutes + ":" + seconds);
   console.log(i);
 };
+let foo = 1;
+log(foo);
 
 //调用本地浏览器图标缓存信息
 let data = window.localStorage.getItem("user");
