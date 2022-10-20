@@ -618,6 +618,92 @@ input:checked[type="checkbox"]::after {
     both;
   animation: shake-right 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
+
+/* 番茄钟 */
+.fanqie {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  background-color: var(--main-colorNotebook);
+  transform: translate(-50%, -40%);
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  z-index: 5;
+  display: none;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 550px;
+  height: 450px;
+  margin: auto;
+  border-radius: 15px;
+  color: var(--main-colorFont);
+}
+.fanqie-main {
+  flex: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.fanqie-toolbar {
+  height: 8%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-colorNbtool);
+}
+.fanqie-text {
+  flex: 1;
+  border: none;
+  resize: none;
+  padding: 15px 15px;
+  outline: 0;
+  background-color: var(--main-colorNotebook);
+  color: var(--main-colorFont);
+  font-size: 14px;
+}
+
+.active-fanqie .fanqie {
+  display: flex;
+}
+.active-fanqie .box {
+  filter: blur(10px);
+  background: var(--main-colorNbicon);
+  pointer-events: none;
+  user-select: none;
+}
+.active-fanqieShow .fanqieShow {
+  display: flex;
+}
+.fanqieShow {
+  position: fixed;
+  left: 5%;
+  top: 5%;
+  background-color: var(--main-colornbshow);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  z-index: 5;
+  display: none;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 280px;
+  height: 60px;
+  padding: 0 5px;
+  margin: auto;
+  border-radius: 5px;
+  color: var(--main-colorFont);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+}
+.fanqieShow:hover {
+  -webkit-animation: shake-right 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+    both;
+  animation: shake-right 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+
 @-webkit-keyframes shake-right {
   0%,
   100% {

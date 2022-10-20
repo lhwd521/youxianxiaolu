@@ -318,6 +318,18 @@
               </div>
               <p class="app-title">备忘录</p>
             </li>
+            <!-- 番茄钟 -->
+            <li class="app-li default">
+              <div class="app-div">
+                <a href="#" class="app-a" onclick="fanqie()"
+                  ><i
+                    class="fa fa-clock-o"
+                    style="font-size: 36px; color: rgba(247, 62, 56, 0.952)"
+                  ></i
+                ></a>
+              </div>
+              <p class="app-title">番茄钟</p>
+            </li>
           </ul>
         </div>
         <!-- 页脚声明 -->
@@ -549,6 +561,64 @@
         id="noteBookShowSpan"
         style="flex: 1; width: 100%; padding: 0px 5px; margin: 20px 0"
         onclick="notebook()"
+      ></span>
+    </div>
+    <!-- 番茄钟 -->
+    <div class="fanqie">
+      <div class="fanqie-main">
+        <div class="fanqie-toolbar">
+          <!-- <i
+            class="fa fa-save nb"
+            style="font-size: 24px; margin-left: 20px; cursor: pointer"
+            onclick="fanqieSave()"
+          ></i>
+          <i
+            class="fa fa-thumb-tack nb"
+            style="font-size: 24px; margin-left: 20px; cursor: pointer"
+            onclick="fanqieShow()"
+          ></i>
+          <i
+            class="fa fa-trash-o nb"
+            style="font-size: 24px; margin-left: 20px; cursor: pointer"
+            onclick="fanqieDel()"
+          ></i> -->
+          <i
+            class="fa fa-close nb"
+            style="
+              font-size: 24px;
+              margin-left: auto;
+              margin-right: 10px;
+              cursor: pointer;
+            "
+            onclick="fanqieClose()"
+          ></i>
+        </div>
+        <!-- <textarea
+          class="fanqie-text"
+          id="fanqieTxt"
+          cols="30"
+          rows="10"
+        ></textarea> -->
+        <input type="number" id="fanqieTime" />
+        <button onclick="fanqieStart()">开始计时</button>
+      </div>
+    </div>
+    <!-- 番茄钟show -->
+    <div class="fanqieShow">
+      <i
+        class="fa fa-close nb"
+        style="
+          font-size: 16px;
+          cursor: pointer;
+          padding: 3px 0;
+          position: fixed;
+        "
+        onclick="fanqieShowkClose()"
+      ></i>
+      <span
+        id="fanqieShowSpan"
+        style="flex: 1; width: 100%; padding: 0px 5px; margin: 20px 0"
+        onclick="fanqie()"
       ></span>
     </div>
     <script src="scripts/main.js" Content-Type="text/javascript"></script>

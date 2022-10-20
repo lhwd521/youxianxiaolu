@@ -7,8 +7,6 @@ let log = function (i) {
   console.log(minutes + ":" + seconds);
   console.log(i);
 };
-let foo = 1;
-log(foo);
 
 //调用本地浏览器图标缓存信息
 let data = window.localStorage.getItem("user");
@@ -75,6 +73,19 @@ if (noteBookShowData === "1") {
   let txt = document.getElementById("noteBookTxt");
   let show = document.getElementById("noteBookShowSpan");
   document.body.classList.toggle("active-noteBookShow");
+  show.innerHTML = txt.value;
+}
+//调用番茄钟数据
+let fanqieData = window.localStorage.getItem("fanqie");
+let fanqieShowData = window.localStorage.getItem("fanqieshow");
+if (fanqieData) {
+  let txt = document.getElementById("fanqieTxt");
+  txt.value = fanqieData;
+}
+if (fanqieShowData === "1") {
+  let txt = document.getElementById("fanqieTxt");
+  let show = document.getElementById("fanqieShowSpan");
+  document.body.classList.toggle("active-fanqieShow");
   show.innerHTML = txt.value;
 }
 
@@ -583,4 +594,49 @@ function noteBookDel() {
   show.innerHTML = txt.value;
   window.localStorage.removeItem("notebook");
   window.localStorage.removeItem("notebookshow");
+}
+
+//番茄钟
+function fanqie() {
+  document.body.classList.toggle("active-fanqie");
+}
+function fanqieClose() {
+  document.body.classList.toggle("active-fanqie");
+}
+function fanqieShowkClose() {
+  document.body.classList.toggle("active-fanqieShow");
+  window.localStorage.removeItem("fanqieshow");
+}
+//番茄钟开始
+function fanqieStart() {
+  let fanqieTime = document.getElementById("fanqieTime");
+  let show = document.getElementById("fanqieShowSpan");
+  show.innerHTML = fanqieTime.value;
+  fanqieSave();
+}
+//番茄钟保存开始时间戳
+function fanqieSave() {
+  let fanqieStartTime = new Date().getTime();
+  window.localStorage.setItem("fanqieStartTime", fanqieStartTime);
+}
+//番茄钟图钉
+function fanqieShow() {
+  let txt = document.getElementById("fanqieTxt");
+  let show = document.getElementById("fanqieShowSpan");
+  document.body.classList.toggle("active-fanqieShow");
+  show.innerHTML = txt.value;
+  if (window.localStorage.getItem("fanqieshow") === "1") {
+    window.localStorage.removeItem("fanqieshow");
+  } else {
+    window.localStorage.setItem("fanqieshow", "1");
+  }
+}
+// 番茄钟删除
+function fanqieDel() {
+  let txt = document.getElementById("fanqieTxt");
+  txt.value = "";
+  let show = document.getElementById("fanqieShowSpan");
+  show.innerHTML = txt.value;
+  window.localStorage.removeItem("fanqie");
+  window.localStorage.removeItem("fanqieshow");
 }
