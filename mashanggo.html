@@ -39,6 +39,7 @@
             <span id="time-week" class="time-week"></span>
           </div>
         </box-time>
+        <div class="fanqieShow"></div>
         <div id="search" class="search">
           <div class="search-box">
             <div class="search-select" onclick="selectSearch()">
@@ -631,7 +632,7 @@
             onclick="fanqieClose()"
           ></i>
         </div>
-        <div id="fanqieDaojishi" class="fanqieDaojishi"></div>
+        <div id="fanqieDaojishi" class="fanqieDaojishi">00:00</div>
         <div class="fanqie-btn">
           <input
             type="text"
@@ -645,6 +646,9 @@
             class="input-fanqieTime"
             value="25"
           />
+          <div class="fenzhong">分钟</div>
+        </div>
+        <div class="fanqie-btn-1">
           <button
             onclick="fanqieStart()"
             id="fanqieStart"
@@ -663,7 +667,7 @@
         >
           查看详细
         </button>
-        <div>
+        <div style="margin-top: 10px">
           <span class="fanqieDaySum">今日番茄数：</span>
           <span id="fanqieDaySum" class="fanqieDaySum"></span>
         </div>
