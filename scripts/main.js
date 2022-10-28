@@ -1,12 +1,22 @@
+// import * as echarts from "echarts";
 //调试
 let log = function (i) {
   const time = new Date();
   let minutes = time.getMinutes();
   let seconds = time.getSeconds();
   //显示时间
-  console.log(minutes + ":" + seconds);
+  // console.log(minutes + ":" + seconds);
   console.log(i);
 };
+//番茄钟计时开关
+let fanqieON;
+if (window.localStorage.getItem("fanqieEndTime")) {
+  fanqieON = 1;
+  document.getElementById("fanqieStart").disabled = true;
+} else {
+  fanqieON = 0;
+  document.getElementById("fanqieStart").disabled = false;
+}
 
 //调用本地浏览器图标缓存信息
 let data = window.localStorage.getItem("user");
@@ -490,7 +500,41 @@ function reset() {
   }
   day();
 }
-
+//导出缓存
+function exportLocalStorage() {
+  let localData = [];
+  localData.push(window.localStorage.getItem("user"));
+  let foo = document.createElement("a");
+  foo.download = "马上起始页缓存" + ".data";
+  foo.style.display = "none";
+  let blob = new Blob([JSON.stringify(localData)]);
+  foo.href = URL.createObjectURL(blob);
+  foo.click();
+}
+//导入缓存
+function importLocalStorage() {
+  let newInput = document.createElement("input");
+  newInput.type = "file";
+  newInput.style.display = "none";
+  newInput.click();
+  newInput.onchange = function (e) {
+    let file = e.target.files[0];
+    let fileType = file.name.split(/[.;]/);
+    if (fileType[fileType.length - 1] == "data") {
+      let reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = function (e) {
+        let contents = JSON.parse(e.target.result);
+        userData = contents[0];
+        localStorage.setItem("user", userData);
+        window.location.href = window.location.href;
+        location.reload();
+      };
+    } else {
+      alert("文件类型错误(xxx.data)");
+    }
+  };
+}
 //重置所有数据
 function resetAll() {
   let tips = window.confirm("重置会删除所有保存的网站数据，请谨慎确认！");
@@ -559,7 +603,6 @@ function night() {
 function notebook() {
   document.body.classList.toggle("active-notebook");
 }
-
 function noteBookClose() {
   document.body.classList.toggle("active-notebook");
 }
@@ -599,9 +642,22 @@ function noteBookDel() {
 //番茄钟
 function fanqie() {
   document.body.classList.toggle("active-fanqie");
+  fanqieON = 1;
+  fanqieDaojishi();
+  let date = new Date();
+  let day = date.getDate();
+  let fanqieDay = window.localStorage.getItem("fanqieDay");
+  if (day == fanqieDay) {
+  } else {
+    window.localStorage.setItem("fanqieDaySum", 0);
+  }
+  window.localStorage.setItem("fanqieDay", day);
+  document.getElementById("fanqieDaySum").innerHTML =
+    window.localStorage.getItem("fanqieDaySum");
 }
 function fanqieClose() {
   document.body.classList.toggle("active-fanqie");
+  fanqieON = 0;
 }
 function fanqieShowkClose() {
   document.body.classList.toggle("active-fanqieShow");
@@ -609,15 +665,145 @@ function fanqieShowkClose() {
 }
 //番茄钟开始
 function fanqieStart() {
-  let fanqieTime = document.getElementById("fanqieTime");
-  let show = document.getElementById("fanqieShowSpan");
-  show.innerHTML = fanqieTime.value;
+  fanqieON = 1;
   fanqieSave();
+  fanqieDaojishi();
+  //开始计时是否激活
+  document.getElementById("fanqieStart").disabled = true;
+  document.getElementById("fanqieName").disabled = true;
 }
-//番茄钟保存开始时间戳
+//番茄钟保存结束时间戳
 function fanqieSave() {
-  let fanqieStartTime = new Date().getTime();
-  window.localStorage.setItem("fanqieStartTime", fanqieStartTime);
+  let fanqieTime = document.getElementById("fanqieTime");
+  let fanqieEndTime =
+    parseInt(Date.parse(new Date()), 10) +
+    parseInt(fanqieTime.value, 10) * 1000;
+  // parseInt(fanqieTime.value, 10) * 1000 * 60;
+  window.localStorage.setItem("fanqieEndTime", fanqieEndTime);
+}
+//番茄钟取消
+function fanqieOff() {
+  fanqieON = 0;
+  window.localStorage.removeItem("fanqieEndTime");
+  document.getElementById("fanqieStart").disabled = false;
+  document.getElementById("fanqieName").disabled = false;
+  let daojishi = document.getElementById("fanqieDaojishi");
+  daojishi.innerHTML = "";
+}
+
+//番茄倒计时
+function fanqieDaojishi() {
+  let endTime = window.localStorage.getItem("fanqieEndTime");
+  endTime = parseInt(endTime, 10);
+  let times = setInterval(function () {
+    let daojishi = document.getElementById("fanqieDaojishi");
+    let nowTime = Date.parse(new Date());
+    let time = endTime - nowTime; //剩余时间
+    var minutes = Math.floor(time / 1000 / 60);
+    var seconds = Math.floor((time / 1000) % 60);
+    if (endTime) {
+      if (time >= 0 && fanqieON == 1) {
+        daojishi.innerHTML = minutes + ":" + seconds;
+      } else if (time < 0) {
+        fanqieON = 0;
+        clearInterval(times);
+        //加一个番茄
+        //如果不存在名称就新增数据，保存。如果存在就数字+1
+        let fanqieName = document.getElementById("fanqieName");
+        fanqieName = fanqieName.value;
+        let newData = { name: fanqieName, value: 1 };
+        let arr = JSON.parse(window.localStorage.getItem("fanqieData"));
+        let daySum = parseInt(window.localStorage.getItem("fanqieDaySum"));
+        if (arr === null) {
+          //数据为空
+          let b = [newData];
+          window.localStorage.setItem("fanqieData", JSON.stringify(b));
+          window.localStorage.setItem("fanqieDaySum", daySum + 1);
+          document.getElementById("fanqieDaySum").innerHTML =
+            window.localStorage.getItem("fanqieDaySum");
+        } else {
+          let index = search(fanqieName, arr);
+          if (index == -1) {
+            //数据不为空，但是name为新增
+            arr.push(newData);
+            window.localStorage.setItem("fanqieData", JSON.stringify(arr));
+            window.localStorage.setItem("fanqieDaySum", daySum + 1);
+            document.getElementById("fanqieDaySum").innerHTML =
+              window.localStorage.getItem("fanqieDaySum");
+          } else {
+            //找到相同的name，数量+1
+            arr[index].value += 1;
+            window.localStorage.setItem("fanqieData", JSON.stringify(arr));
+            window.localStorage.setItem("fanqieDaySum", daySum + 1);
+            document.getElementById("fanqieDaySum").innerHTML =
+              window.localStorage.getItem("fanqieDaySum");
+          }
+        }
+        window.localStorage.removeItem("fanqieEndTime");
+        document.getElementById("fanqieStart").disabled = false;
+        document.getElementById("fanqieName").disabled = false;
+      } else if (fanqieON == 0) {
+        clearInterval(times);
+      }
+    } else {
+      fanqieON = 0;
+      clearInterval(times);
+    }
+  }, 1000);
+}
+//查数组函数
+function search(key, array) {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].name == key) {
+      return i;
+    }
+  }
+  return -1;
+}
+//番茄钟图表
+
+function fanqieEcharts() {
+  document.body.classList.toggle("active-fanqieEcharts");
+
+  var chartDom = document.getElementById("main");
+  var myChart = echarts.init(chartDom);
+  var option;
+  let arr = JSON.parse(window.localStorage.getItem("fanqieData"));
+
+  option = {
+    title: {
+      text: "番茄钟统计",
+      subtext: "单位:1个番茄",
+      left: "center",
+    },
+    tooltip: {
+      trigger: "item",
+    },
+    legend: {
+      orient: "vertical",
+      left: "left",
+    },
+    series: [
+      {
+        name: "图表",
+        type: "pie",
+        radius: "50%",
+        data: arr,
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: "rgba(0, 0, 0, 0.5)",
+          },
+        },
+      },
+    ],
+  };
+
+  option && myChart.setOption(option);
+}
+function fanqieEchartsClose() {
+  document.body.classList.toggle("active-fanqieEcharts");
 }
 //番茄钟图钉
 function fanqieShow() {
@@ -639,4 +825,12 @@ function fanqieDel() {
   show.innerHTML = txt.value;
   window.localStorage.removeItem("fanqie");
   window.localStorage.removeItem("fanqieshow");
+}
+
+//关于网站
+function about() {
+  document.body.classList.toggle("active-about");
+}
+function aboutClose() {
+  document.body.classList.toggle("active-about");
 }

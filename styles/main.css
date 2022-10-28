@@ -55,6 +55,18 @@
     width: 90% !important ;
     height: 60% !important;
   }
+  .fanqie {
+    width: 90% !important ;
+    height: 60% !important;
+  }
+  .fanqieEcharts {
+    width: 90% !important ;
+    height: 60% !important;
+  }
+  .about {
+    width: 90% !important ;
+    height: 60% !important;
+  }
 }
 .flex1 {
   flex: 1;
@@ -644,6 +656,7 @@ input:checked[type="checkbox"]::after {
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .fanqie-toolbar {
   height: 8%;
@@ -702,6 +715,173 @@ input:checked[type="checkbox"]::after {
   -webkit-animation: shake-right 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955)
     both;
   animation: shake-right 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+.fanqieDaojishi {
+}
+.input-fanqieName {
+  margin-top: 10px;
+  padding: 5px 20px;
+  font-size: 15px;
+  border-radius: 5px;
+  width: 20%;
+}
+.input-fanqieTime {
+  margin-top: 10px;
+  padding: 5px 20px;
+  font-size: 15px;
+  border-radius: 5px;
+  width: 20%;
+}
+.btn-fanqieStart {
+  margin-top: 10px;
+  padding: 5px 20px;
+  font-size: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-fanqieOff {
+  margin-top: 10px;
+  padding: 5px 20px;
+  font-size: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-fanqieEcharts {
+  margin-top: 10px;
+  padding: 5px 20px;
+  font-size: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.fanqieDaySum {
+}
+.fanqie-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: space-between;
+  width: 90%;
+}
+.app-add-btn {
+  margin-top: 10px;
+  padding: 5px 20px;
+  font-size: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-fanqieStart:hover {
+  background-color: rgba(8, 247, 28, 0.7);
+}
+.btn-fanqieOff:hover {
+  background-color: rgba(235, 8, 8, 0.8);
+}
+.btn-fanqieEcharts:hover {
+  background-color: rgba(2, 60, 250, 0.6);
+}
+/* 番茄钟图表 */
+.fanqieEcharts {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  background-color: var(--main-colorNotebook);
+  transform: translate(-50%, -40%);
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  z-index: 6;
+  display: none;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 550px;
+  height: 450px;
+  margin: auto;
+  border-radius: 15px;
+  color: var(--main-colorFont);
+}
+.fanqieEcharts-main {
+  flex: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.fanqieEcharts-toolbar {
+  height: 8%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-colorNbtool);
+}
+.active-fanqieEcharts .fanqieEcharts {
+  display: flex;
+}
+.active-fanqieEcharts .box {
+  filter: blur(10px);
+  background: var(--main-colorNbicon);
+  pointer-events: none;
+  user-select: none;
+}
+.fanqieEcharts-show {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* 关于网站 */
+.about {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  background-color: var(--main-colorNotebook);
+  transform: translate(-50%, -40%);
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  z-index: 5;
+  display: none;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 550px;
+  height: 450px;
+  margin: auto;
+  border-radius: 15px;
+  color: var(--main-colorFont);
+}
+.about-main {
+  flex: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.about-toolbar {
+  height: 8%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-colorNbtool);
+}
+.about-text {
+  flex: 1;
+  border: none;
+  resize: none;
+  padding: 15px 15px;
+  outline: 0;
+  background-color: var(--main-colorNotebook);
+  color: var(--main-colorFont);
+  font-size: 14px;
+}
+
+.active-about .about {
+  display: flex;
+}
+.active-about .box {
+  filter: blur(10px);
+  background: var(--main-colorNbicon);
+  pointer-events: none;
+  user-select: none;
+}
+.active-aboutShow .aboutShow {
+  display: flex;
 }
 
 @-webkit-keyframes shake-right {

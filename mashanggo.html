@@ -346,11 +346,56 @@
             rel="noopener noreferrer"
             >悠闲小路</a
           >
+          <div
+            style="
+              text-decoration: none;
+              margin-left: 20px;
+              color: rgb(11, 202, 236);
+              cursor: pointer;
+            "
+            onclick="about()"
+          >
+            关于网站
+          </div>
         </div>
         <wallpaper>
           <div id="mao" class="mao"></div>
           <img id="bgimg" class="bg" src="./images/yun.jpg" alt="beijing" />
         </wallpaper>
+      </div>
+    </div>
+    <!-- 关于网站 -->
+    <div class="about">
+      <div class="about-main">
+        <div class="about-toolbar">
+          <i
+            class="fa fa-close nb"
+            style="
+              font-size: 24px;
+              margin-left: auto;
+              margin-right: 10px;
+              cursor: pointer;
+            "
+            onclick="aboutClose()"
+          ></i>
+        </div>
+        <div style="text-align: center">
+          <p style="font-size: 35px; color: cornflowerblue; font-weight: bold">
+            马上起始页
+          </p>
+          <p style="font-size: 8px">由悠闲小路开发的起始页网站，欢迎使用！</p>
+          <p style="font-size: 8px">有任何建议请联系微信：youxianxiaolu8</p>
+          <p>
+            2022.10.20 更新番茄钟功能（详见<a
+              href="https://baike.baidu.com/item/%E7%95%AA%E8%8C%84%E5%B7%A5%E4%BD%9C%E6%B3%95/6353502?fromModule=lemma-qiyi_sense-lemma"
+              style="text-decoration: none; color: red"
+              target="_blank"
+              rel="noopener noreferrer"
+              >番茄工作法</a
+            >）
+          </p>
+          <p>2022.10.21 更新图标缓存导入导出功能</p>
+        </div>
       </div>
     </div>
     <!-- app添加窗口 -->
@@ -501,6 +546,14 @@
       <div class="setup-list">
         <button class="setup-btn" onclick="reset()">恢复默认设置</button>
       </div>
+      <div>
+        <button class="setup-btn" onclick="exportLocalStorage()">
+          导出图标
+        </button>
+        <button class="setup-btn" onclick="importLocalStorage()">
+          导入图标
+        </button>
+      </div>
       <div class="setup-list">
         <button class="setup-btn" style="color: red" onclick="resetAll()">
           重置网站 删除所有缓存
@@ -567,21 +620,6 @@
     <div class="fanqie">
       <div class="fanqie-main">
         <div class="fanqie-toolbar">
-          <!-- <i
-            class="fa fa-save nb"
-            style="font-size: 24px; margin-left: 20px; cursor: pointer"
-            onclick="fanqieSave()"
-          ></i>
-          <i
-            class="fa fa-thumb-tack nb"
-            style="font-size: 24px; margin-left: 20px; cursor: pointer"
-            onclick="fanqieShow()"
-          ></i>
-          <i
-            class="fa fa-trash-o nb"
-            style="font-size: 24px; margin-left: 20px; cursor: pointer"
-            onclick="fanqieDel()"
-          ></i> -->
           <i
             class="fa fa-close nb"
             style="
@@ -593,14 +631,60 @@
             onclick="fanqieClose()"
           ></i>
         </div>
-        <!-- <textarea
-          class="fanqie-text"
-          id="fanqieTxt"
-          cols="30"
-          rows="10"
-        ></textarea> -->
-        <input type="number" id="fanqieTime" />
-        <button onclick="fanqieStart()">开始计时</button>
+        <div id="fanqieDaojishi" class="fanqieDaojishi"></div>
+        <div class="fanqie-btn">
+          <input
+            type="text"
+            id="fanqieName"
+            class="input-fanqieName"
+            value="工作"
+          />
+          <input
+            type="number"
+            id="fanqieTime"
+            class="input-fanqieTime"
+            value="25"
+          />
+          <button
+            onclick="fanqieStart()"
+            id="fanqieStart"
+            class="btn-fanqieStart"
+          >
+            开始计时
+          </button>
+          <button onclick="fanqieOff()" id="fanqieOff" class="btn-fanqieOff">
+            取消计时
+          </button>
+        </div>
+        <button
+          onclick="fanqieEcharts()"
+          id="fanqieEcharts"
+          class="btn-fanqieEcharts"
+        >
+          查看详细
+        </button>
+        <div>
+          <span class="fanqieDaySum">今日番茄数：</span>
+          <span id="fanqieDaySum" class="fanqieDaySum"></span>
+        </div>
+      </div>
+    </div>
+    <!-- 番茄钟详细图表 -->
+    <div class="fanqieEcharts">
+      <div class="fanqieEcharts-main">
+        <div class="fanqieEcharts-toolbar">
+          <i
+            class="fa fa-close nb"
+            style="
+              font-size: 24px;
+              margin-left: auto;
+              margin-right: 10px;
+              cursor: pointer;
+            "
+            onclick="fanqieEchartsClose()"
+          ></i>
+        </div>
+        <div id="main" class="fanqieEcharts-show"></div>
       </div>
     </div>
     <!-- 番茄钟show -->
@@ -622,5 +706,6 @@
       ></span>
     </div>
     <script src="scripts/main.js" Content-Type="text/javascript"></script>
+    <script src="scripts/echarts.js"></script>
   </body>
 </html>
