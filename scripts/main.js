@@ -649,8 +649,6 @@ function noteBookDel() {
 //番茄钟
 function fanqie() {
   document.body.classList.toggle("active-fanqie");
-  fanqieON = 1;
-  fanqieDaojishi();
   let date = new Date();
   let day = date.getDate();
   let fanqieDay = window.localStorage.getItem("fanqieDay");
@@ -684,6 +682,10 @@ function fanqieSave() {
     parseInt(fanqieTime.value, 10) * 1000 * 60;
   // parseInt(fanqieTime.value, 10) * 1000 * 60;
   window.localStorage.setItem("fanqieEndTime", fanqieEndTime);
+  window.localStorage.setItem(
+    "fanqieAllTime",
+    parseInt(fanqieTime.value, 10) * 1000 * 60
+  );
 
   let fanqieName = document.getElementById("fanqieName");
   window.localStorage.setItem("fanqieName", fanqieName.value);
@@ -703,6 +705,7 @@ function fanqieOff() {
 function fanqieDaojishi() {
   let endTime = window.localStorage.getItem("fanqieEndTime");
   endTime = parseInt(endTime, 10);
+  let fanqieAllTime = window.localStorage.getItem("fanqieAllTime");
   if (endTime) {
     let times = setInterval(function () {
       let daojishi = document.getElementById("fanqieDaojishi");
@@ -718,9 +721,13 @@ function fanqieDaojishi() {
         daojishiShow.innerHTML = `${minutes}:${
           seconds < 10 ? `0${seconds}` : seconds
         }`;
+        //进度条width = 260*（剩下时间/倒计总时间）
+        document.getElementById("progressbar").style.width =
+          parseInt(260 * (time / fanqieAllTime)) + "px";
       } else if (time < 0) {
         fanqieON = 0;
         clearInterval(times);
+        daojishiShow.innerHTML = "番茄+1";
         //加一个番茄
         //如果不存在名称就新增数据，保存。如果存在就数字+1
         let fanqieName = window.localStorage.getItem("fanqieName");
@@ -731,7 +738,7 @@ function fanqieDaojishi() {
           //数据为空
           let b = [newData];
           window.localStorage.setItem("fanqieData", JSON.stringify(b));
-          window.localStorage.setItem("fanqieDaySum", daySum + 1);
+          window.localStorage.setItem("fanqieDaySum", 1);
           document.getElementById("fanqieDaySum").innerHTML =
             window.localStorage.getItem("fanqieDaySum");
         } else {

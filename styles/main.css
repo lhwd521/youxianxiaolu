@@ -704,6 +704,7 @@ input:checked[type="checkbox"]::after {
 }
 .input-fanqieTime {
   margin-left: 20px;
+  margin-right: 20px;
   font-size: 25px;
   border-radius: 5px;
   width: 30%;
@@ -895,7 +896,7 @@ input:checked[type="checkbox"]::after {
   top: 50%;
   font-size: 20px;
   font-weight: bolder;
-  color: rgb(229, 231, 109);
+  color: rgba(18, 77, 238, 0.808);
 }
 .fanqieShowBtn {
   border-radius: 8px;
@@ -931,9 +932,10 @@ input:checked[type="checkbox"]::after {
   overflow: hidden;
 }
 .progressbar {
-  width: 200px;
+  width: 260px;
   height: 30px;
-  border-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
   box-shadow: 0 0px 0px 0px hsl(0, 90%, 35%), 2px 8px 15px 1px hsl(0, 90%, 70%);
   background-color: hsl(0, 90%, 70%);
   background-image: linear-gradient(
