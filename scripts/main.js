@@ -676,6 +676,7 @@ function fanqieStart() {
   //开始计时是否激活
   document.getElementById("fanqieStart").disabled = true;
   document.getElementById("fanqieName").disabled = true;
+  document.body.classList.toggle("active-fanqieShow");
 }
 //番茄钟保存结束时间戳和名字
 function fanqieSave() {
@@ -697,6 +698,7 @@ function fanqieOff() {
   document.getElementById("fanqieName").disabled = false;
   let daojishi = document.getElementById("fanqieDaojishi");
   daojishi.innerHTML = "00:00";
+  document.body.classList.toggle("active-fanqieShow");
 }
 
 //番茄倒计时
@@ -706,12 +708,16 @@ function fanqieDaojishi() {
   if (endTime) {
     let times = setInterval(function () {
       let daojishi = document.getElementById("fanqieDaojishi");
+      let daojishiShow = document.getElementById("daojishiShow");
       let nowTime = Date.parse(new Date());
       let time = endTime - nowTime; //剩余时间
       var minutes = Math.floor(time / 1000 / 60);
       var seconds = Math.floor((time / 1000) % 60);
       if (time >= 0 && fanqieON == 1) {
         daojishi.innerHTML = `${minutes}:${
+          seconds < 10 ? `0${seconds}` : seconds
+        }`;
+        daojishiShow.innerHTML = `${minutes}:${
           seconds < 10 ? `0${seconds}` : seconds
         }`;
       } else if (time < 0) {
