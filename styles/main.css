@@ -917,9 +917,8 @@ input:checked[type="checkbox"]::after {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   /* z-index: 5; */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  /* align-items: center; */
+  justify-content: flex-end;
   width: 260px;
   height: 30px;
   padding: 0 0px;
@@ -932,7 +931,7 @@ input:checked[type="checkbox"]::after {
   overflow: hidden;
 }
 .progressbar {
-  width: 260px;
+  width: 200px;
   height: 30px;
   border-radius: 10px;
   box-shadow: 0 0px 0px 0px hsl(0, 90%, 35%), 2px 8px 15px 1px hsl(0, 90%, 70%);

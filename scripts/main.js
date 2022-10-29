@@ -17,6 +17,8 @@ if (window.localStorage.getItem("fanqieEndTime")) {
   //给一个名称
   document.getElementById("fanqieName").value =
     window.localStorage.getItem("fanqieName");
+  fanqieDaojishi();
+  document.body.classList.toggle("active-fanqieShow");
 } else {
   fanqieON = 0;
   document.getElementById("fanqieStart").disabled = false;
@@ -662,11 +664,7 @@ function fanqie() {
 }
 function fanqieClose() {
   document.body.classList.toggle("active-fanqie");
-  fanqieON = 0;
-}
-function fanqieShowkClose() {
-  document.body.classList.toggle("active-fanqieShow");
-  window.localStorage.removeItem("fanqieshow");
+  // fanqieON = 0;
 }
 //番茄钟开始
 function fanqieStart() {
