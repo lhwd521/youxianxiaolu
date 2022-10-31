@@ -699,6 +699,8 @@ function fanqieOff() {
   let daojishi = document.getElementById("fanqieDaojishi");
   daojishi.innerHTML = "00:00";
   document.body.classList.toggle("active-fanqieShow");
+  var audio = document.getElementById("music");
+  audio.load();
 }
 
 //番茄倒计时
@@ -730,6 +732,9 @@ function fanqieDaojishi() {
         daojishiShow.innerHTML = "番茄+1";
         document.getElementById("progressbar").style.width = "0px";
         daojishi.innerHTML = "00:00";
+        //播放闹铃
+        let audio = document.getElementById("music");
+        audio.play();
         //加一个番茄
         //如果不存在名称就新增数据，保存。如果存在就数字+1
         let fanqieName = window.localStorage.getItem("fanqieName");
@@ -835,6 +840,11 @@ function fanqieShow() {
   } else {
     window.localStorage.setItem("fanqieshow", "1");
   }
+}
+//番茄钟关闭铃声
+function fanqieOffMusic() {
+  let audio = document.getElementById("music");
+  audio.load();
 }
 // 番茄钟删除
 function fanqieDel() {

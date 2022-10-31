@@ -11,7 +11,7 @@
     <meta name="keywords" content="马上起始页,马上,主页,导航,起始页,悠闲小路" />
     <meta name="copyright" content="悠闲小路" />
     <meta name="author" content="悠闲小路" />
-    <link rel="stylesheet" type="text/css" href="styles/main-20221029.css" />
+    <link rel="stylesheet" type="text/css" href="styles/main-20221101.css" />
     <link rel="icon" href="favicon.ico" />
     <link
       rel="stylesheet"
@@ -40,10 +40,10 @@
           </div>
         </box-time>
         <div class="fanqieShow">
-          <div class="fanqieShowBtn">
+          <div class="fanqieShowBtn" onclick="fanqieOffMusic()">
             <i
               id="fanqieShowAll"
-              class="fa fa-heart"
+              class="fa fa-bell-slash"
               style="font-size: 30px; color: crimson"
             ></i>
           </div>
@@ -711,8 +711,15 @@
         <div id="main" class="fanqieEcharts-show"></div>
       </div>
     </div>
+    <audio
+      src="https://assets.mixkit.co/music/preview/mixkit-feeling-happy-5.mp3"
+      controls="controls"
+      preload
+      id="music"
+      hidden
+    ></audio>
     <script
-      src="scripts/main-20221031.js"
+      src="scripts/main-20221101.js"
       Content-Type="text/javascript"
     ></script>
     <script src="scripts/echarts.js"></script>
