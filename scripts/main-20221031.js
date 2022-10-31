@@ -728,6 +728,8 @@ function fanqieDaojishi() {
         fanqieON = 0;
         clearInterval(times);
         daojishiShow.innerHTML = "番茄+1";
+        document.getElementById("progressbar").style.width = "0px";
+        daojishi.innerHTML = "00:00";
         //加一个番茄
         //如果不存在名称就新增数据，保存。如果存在就数字+1
         let fanqieName = window.localStorage.getItem("fanqieName");
